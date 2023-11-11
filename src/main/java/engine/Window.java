@@ -10,23 +10,24 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
 
-    int width;
-    int height;
+    private final boolean vsync;
+    private final int width;
+    private final int  height;
     String title;
     private static Window window = null;
 
     private long glfwWindow;
-    public Window() {
-        this.width = 1920;
-        this.height = 1080;
-        this.title = "Rendering";
+    public Window(int width, int height, String title, boolean vsync) {
+        this.width = width;
+        this.height = height;
+        this.title = title;
+        this.vsync = vsync;
     }
 
-    public static Window get(){
-        if(Window.window == null){
-            Window.window = new Window();
-        }
-        return Window.window;
+
+
+    public boolean isKeyPressed(int keyCode) {
+        return glfwGetKey(glfwWindow, keyCode) == GLFW_PRESS;
     }
 
     private void init(){
